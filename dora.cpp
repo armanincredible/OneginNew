@@ -130,6 +130,8 @@ char* remove_trash_and_copy_in_buffer (int* str_amount)
         return NULL;
     }
     
+    fclose (file);
+    
     return buffer;
 }
 
