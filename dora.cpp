@@ -1,23 +1,18 @@
 #include "dora.h"
 
-int make_array_adress (char* buffer, const int str_amount, Onegin* line)
+int make_array_adress (char* buffer, const int str_amount, Onegin* line)///////line proverka
 {
+    if (line == NULL)
+    {
+        printf ("ERROR in function : %s \nline has zero adress\n", __func__);
+        return -1;  
+    }
     if (buffer == NULL)
     {
         printf ("ERROR in function : %s \nbuffer has zero adress\n", __func__);
         return -1;
     }
     
-    for (int ind = 0; ind < str_amount; ind++)
-    {
-        line[ind].adress = (char*) calloc (1, sizeof (char*));
-        if (line[ind].adress == NULL)
-        {
-            printf ("ERROR in function : %s \nhaven't memory for struct line\n", __func__);
-            return -1;
-        }
-    }
-
     char *adress_new_str = buffer;
     char *past_adress = buffer;
     line[0].adress = buffer;
@@ -30,13 +25,13 @@ int make_array_adress (char* buffer, const int str_amount, Onegin* line)
 
         line [amount      ].adress = adress_new_str;
         line [amount - one].length = adress_new_str - past_adress - one;
-
+        
         past_adress = adress_new_str;
     }
 
     adress_new_str = strchr (adress_new_str, '\0') + one;
-    *(adress_new_str - one) = '\n';
-
+    //*(adress_new_str - one) = '\n';//
+    
     line[amount      ].adress = adress_new_str;
     line[amount - one].length = line[amount].adress - line[amount - one].adress - one;
 
